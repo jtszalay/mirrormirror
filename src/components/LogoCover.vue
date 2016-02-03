@@ -1,6 +1,6 @@
 <template lang="jade">
-  div.logoCover
-    img#cover(src='cover.png')
+  div#logoCover
+    img#cover(src='../assets/cover.png' v-show='state')
 </template>
 
 <script>
@@ -26,13 +26,16 @@ export default {
       self.$dispatch('relay', {'target': 'speech', 'origin': 'logocover', 'directive': 'addcommands', 'message': self.speechCommands})
     },
     showCover: function () {
-      console.log('Show Logo Cover')
+      this.state = true
+      console.debug('Show Logo Cover')
     },
     hideCover: function () {
-      console.log('Hide Logo Cover')
+      this.state = false
+      console.debug('Hide Logo Cover')
     },
     toggleCover: function () {
-      console.log('toggle Cover')
+      this.state = !this.state
+      console.debug('toggle Cover')
     }
   },
   created: function () {
@@ -47,12 +50,11 @@ export default {
   background-color: black;
   position: absolute;
   margin: auto;
-  left: 0; 
+  left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   width: 100%;
   z-index: 999;
-  display: none;
 }
 </style>

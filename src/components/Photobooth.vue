@@ -1,5 +1,5 @@
 <template lang="jade">
-  div.photobooth
+  div#photobooth
     img
 </template>
 
@@ -54,7 +54,7 @@ export default {
       this.$emit(msg['directive'], msg)
     },
     'receiveFrame': function (msg) {
-      console.log(msg)
+      console.debug(msg)
       this.$el.firstChild.src = msg['message']['dataURL']
     }
   }

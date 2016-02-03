@@ -90,6 +90,7 @@ export default {
   },
   events: {
     'speech': function (msg) {
+      console.debug('speech', msg)
       this.$emit(msg['directive'], msg)
     },
     'addcommands': function (msg) {

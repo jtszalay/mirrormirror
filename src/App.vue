@@ -1,18 +1,22 @@
 <template lang="jade">
   div#app
+    speech
+    logocover
+    sleepcover
     clock
     camera
-    weather
-    speech
     photobooth
+    weather
 </template>
 
 <script>
-import Speech from './components/Speech'
-import Clock from './components/Clock'
-import Camera from './components/Camera'
-import Weather from './components/Weather'
-import Photobooth from './components/Photobooth'
+import speech from './components/speech'
+import clock from './components/clock'
+import camera from './components/camera'
+import photobooth from './components/photobooth'
+import sleepcover from './components/sleepcover'
+import logocover from './components/logocover'
+import weather from './components/weather'
 
 export default {
   data () {
@@ -26,7 +30,7 @@ export default {
     }
   },
   components: {
-    Speech, Clock, Camera, Weather, Photobooth
+    speech, logocover, clock, camera, sleepcover, weather, photobooth
   },
   events: {
     'relay': function (msg) {
@@ -35,6 +39,18 @@ export default {
     },
     'mirror': function (msg) {
       this.$emit(msg['directive'], msg)
+    },
+    'setContext': function (msg) {
+      console.debug('Set context', msg)
+    },
+    'getContext': function (msg) {
+      console.debug('Get context', msg)
+    },
+    'setState': function (msg) {
+      console.debug('Set State', msg)
+    },
+    'getState': function (msg) {
+      console.debug('Get State', msg)
     }
   }
 }

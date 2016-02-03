@@ -1,5 +1,5 @@
 <template lang="jade">
-  div.sleepCover
+  div#sleepcover(v-show='state')
 </template>
 
 <script>
@@ -15,16 +15,20 @@ export default {
       speechCommands: {
         'go to sleep': function () {
           console.debug('go to sleep')
-        },
+          this.showCover()
+        }.bind(this),
         'wake up': function () {
           console.debug('wake up')
-        },
+          this.hideCover()
+        }.bind(this),
         'good night': function () {
           console.debug('good night. go to sleep')
-        },
+          this.showCover()
+        }.bind(this),
         'good morning': function () {
           console.debug('wake up. good morning.')
-        }
+          this.hideCover()
+        }.bind(this)
       }
     }
   },
@@ -34,10 +38,16 @@ export default {
       self.$dispatch('relay', {'target': 'speech', 'origin': 'sleepcover', 'directive': 'addcommands', 'message': self.speechCommands})
     },
     showCover: function () {
-      console.log('Show Logo Cover')
+      this.state = true
+      console.debug('Show sleep Cover')
     },
     hideCover: function () {
-      console.log('Hide Logo Cover')
+      this.state = false
+      console.debug('Hide sleep Cover')
+    },
+    toggleCover: function () {
+      this.state = !this.state
+      console.debug('Toggle sleep Cover')
     }
   },
   created: function () {
@@ -48,7 +58,7 @@ export default {
 
 
 <style lang="stylus">
-#sleep-cover {
+#sleepcover {
   background-color: black;
   position: fixed;
   top: 0;
@@ -56,6 +66,5 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 998;
-  display: none;
 }
 </style>
