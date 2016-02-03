@@ -1,9 +1,9 @@
 <template lang="jade">
   div#app
-    speech
     clock
     camera
     weather
+    speech
     photobooth
 </template>
 

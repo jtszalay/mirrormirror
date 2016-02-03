@@ -13,14 +13,22 @@ export default {
       // its initial state.
       state: false,
       speechCommands: {
+        'go to sleep': function () {
+          console.debug('go to sleep')
+        },
+        'wake up': function () {
+          console.debug('wake up')
+        },
+        'good night': function () {
+          console.debug('good night. go to sleep')
+        },
+        'good morning': function () {
+          console.debug('wake up. good morning.')
+        }
       }
     }
   },
   methods: {
-    updateWidget: function () {
-      var self = this
-      
-    },
     addSpeechCommands: function () {
       var self = this
       self.$dispatch('relay', {'target': 'speech', 'origin': 'sleepcover', 'directive': 'addcommands', 'message': self.speechCommands})
@@ -34,10 +42,20 @@ export default {
   },
   created: function () {
     this.addSpeechCommands()
+  }
 }
 </script>
 
 
 <style lang="stylus">
-
+#sleep-cover {
+  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+  display: none;
+}
 </style>

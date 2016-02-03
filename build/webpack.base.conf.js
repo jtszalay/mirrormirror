@@ -25,6 +25,10 @@ module.exports = {
         loader: "file"
       },
       {
+        test: /\.(ogg|mp3)$/,
+        loader: 'file-loader'
+      },
+      {
         test: /\.vue$/,
         loader: 'vue'
       },

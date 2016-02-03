@@ -1,5 +1,6 @@
 <template lang="jade">
   div.photobooth
+    img
 </template>
 
 <script>
@@ -14,6 +15,12 @@ export default {
       speechCommands: {
         'take a photo': function () {
           this.takePhoto()
+        }.bind(this),
+        'clear photo': function () {
+          this.clearPhoto()
+        }.bind(this),
+        'take a selfie': function () {
+          this.takePhoto()
         }.bind(this)
       }
     }
@@ -23,9 +30,20 @@ export default {
       var self = this
       self.$dispatch('relay', {'target': 'speech', 'origin': 'photobooth', 'directive': 'addcommands', 'message': self.speechCommands})
     },
+    playShutter: function () {
+      var shutter = new Audio()
+      shutter.autoplay = false
+      shutter.src = navigator.userAgent.match(/Firefox/) ? require('../assets/shutter.ogg') : require('../assets/shutter.mp3')
+      shutter.play()
+    },
     takePhoto: function () {
       var self = this
+      self.playShutter()
       self.$dispatch('relay', {'target': 'camera', 'origin': 'photobooth', 'directive': 'getFrame'})
+    },
+    clearPhoto: function () {
+      var self = this
+      self.$el.firstChild.src = ''
     }
   },
   created: function () {
@@ -37,6 +55,7 @@ export default {
     },
     'receiveFrame': function (msg) {
       console.log(msg)
+      this.$el.firstChild.src = msg['message']['dataURL']
     }
   }
 }

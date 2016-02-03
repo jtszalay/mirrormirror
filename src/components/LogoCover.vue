@@ -1,5 +1,6 @@
 <template lang="jade">
   div.logoCover
+    img#cover(src='cover.png')
 </template>
 
 <script>
@@ -13,17 +14,13 @@ export default {
       // its initial state.
       state: false,
       speechCommands: {
-        'Mirror, Mirror': function () {
-          this.showCover
+        'mirror mirror (on the wall)': function () {
+          this.showCover()
         }.bind(this)
       }
     }
   },
   methods: {
-    updateWidget: function () {
-      var self = this
-      
-    },
     addSpeechCommands: function () {
       var self = this
       self.$dispatch('relay', {'target': 'speech', 'origin': 'logocover', 'directive': 'addcommands', 'message': self.speechCommands})
@@ -46,5 +43,16 @@ export default {
 
 
 <style lang="stylus">
-
+#cover {
+  background-color: black;
+  position: absolute;
+  margin: auto;
+  left: 0; 
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+  display: none;
+}
 </style>

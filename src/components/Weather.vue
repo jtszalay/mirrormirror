@@ -1,10 +1,12 @@
 <template lang="jade">
   div.weather
       div#weather-today
+        canvas#todayIcon(width='64' height='64')
         span#todayTemp {{ weather.currently.temperature + '&deg; F' }}
       div#weather-description
         span#weatherText {{ weather.daily.summary }}
-      div.weather-week(v-for='day in weather.daily.data')
+      div.weather-week(v-for='(index, day) in weather.daily.data')
+        canvas(id='weekIcon{{ index }}' width='24' height='24')
         span.day {{ day.day }}
         span.temperature {{ day.temperatureMax.toFixed(2) }}
         span.temperature {{ day.temperatureMin.toFixed(2) }}
@@ -12,6 +14,7 @@
 
 <script>
 import moment from 'moment'
+import '../js/skycons'
 
 export default {
   data () {
@@ -39,19 +42,30 @@ export default {
         self.setWeather(data)
       })
     },
-    setWeather (data) {
+    setWeather: function (data) {
       var self = this
       self.weather = data
-      for (var i = 0; i < data.daily.data.length; i++) {
-        self.weather.daily.data[i].day = moment.unix(data.daily.data[i].time).format('ddd')
+      for (var i = 0; i < self.weather.daily.data.length; i++) {
+        self.weather.daily.data[i].day = moment.unix(self.weather.daily.data[i].time).format('ddd')
       }
     },
-    setLocation (location) {
+    setSkycons: function () {
+      var self = this
+      if (window.Skycons) {
+        var skycons = new window.Skycons({'color': 'white'})
+        skycons.add('todayIcon', self.weather.currently.icon)
+        for (var j = 0; j < self.weather.daily.data.length; j++) {
+          skycons.add('weekIcon' + j, self.weather.daily.data[j].icon)
+        }
+        skycons.play()
+      }
+    },
+    setLocation: function (location) {
       console.debug('Location: ', location)
       this.location = location
       this.fetchWeather()
     },
-    getLocation () {
+    getLocation: function () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.setLocation)
       } else {
@@ -64,6 +78,12 @@ export default {
     setInterval(function () {
       this.updateWidget()
     }.bind(this), this.refreshTime)
+  },
+  watch: {
+    'weather': function () {
+      var self = this
+      self.setSkycons()
+    }
   }
 }
 </script>
