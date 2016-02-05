@@ -3,7 +3,6 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -14,7 +13,7 @@ export default {
       speechCommands: {
 
       },
-      refreshTime: 24*3600*1000 // hours * seconds in an hour * mill
+      refreshTime: 24 * 3600 * 1000 // hours * seconds in an hour * mill
     }
   },
   methods: {
@@ -41,7 +40,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="stylus">
 

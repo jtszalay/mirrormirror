@@ -19,13 +19,9 @@ import '../js/skycons'
 export default {
   data () {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       weather: '',
       location: '',
-      apikey: '',
+      apikey: '6b118744916bf546a1e236cd3f4c206c',
       refreshTime: 1 * 3600 * 1000
     }
   },
@@ -116,5 +112,4 @@ export default {
     width 60px
   & > canvas
     vertical-align text-bottom
-
 </style>

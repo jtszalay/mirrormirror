@@ -5,18 +5,14 @@
 
 <script>
 import '../js/annyang'
-import '../js/speechkitt.min.js'
+import '../js/speechkitt.js'
 
 export default {
 
   data () {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       listening: false,
-      debug: true,
+      debug: false,
       userSaid: '',
       speechCommands: {
         /* '*allSpeech': function (allSpeech) {
@@ -103,7 +99,6 @@ export default {
   }
 }
 </script>
-
 
 <style>
 

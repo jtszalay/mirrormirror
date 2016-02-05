@@ -1,12 +1,14 @@
 <template lang="jade">
   div#app
+    h1 Hello, {{ user }}
     speech
+    weather
     logocover
     sleepcover
     clock
     camera
     photobooth
-    weather
+    facerecognition
 </template>
 
 <script>
@@ -16,21 +18,19 @@ import camera from './components/camera'
 import photobooth from './components/photobooth'
 import sleepcover from './components/sleepcover'
 import logocover from './components/logocover'
+import facerecognition from './components/facerecognition'
 import weather from './components/weather'
 
 export default {
   data () {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       state: 'default',
-      context: 'default'
+      context: 'default',
+      user: ''
     }
   },
   components: {
-    speech, logocover, clock, camera, sleepcover, weather, photobooth
+    speech, logocover, clock, camera, sleepcover, photobooth, facerecognition, weather
   },
   events: {
     'relay': function (msg) {
@@ -51,6 +51,19 @@ export default {
     },
     'getState': function (msg) {
       console.debug('Get State', msg)
+    },
+    'setUser': function (msg) {
+      console.debug('Set User', msg)
+      console.log(msg['message']['user'])
+      if (this.user !== msg['message']['user']) {
+        this.user = msg['message']['user']
+        msg['target'] = '*'
+        msg['origin'] = 'mirror'
+        this.$broadcast('*', msg)
+      }
+    },
+    'getUser': function (msg) {
+      console.debug('Get User', msg)
     }
   }
 }

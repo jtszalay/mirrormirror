@@ -4,18 +4,16 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       state: false,
       speechCommands: {
         'mirror mirror (on the wall)': function () {
           this.showCover()
+        }.bind(this),
+        'who is the fairest of them all': function () {
+          this.hideCover()
         }.bind(this)
       }
     }
@@ -43,7 +41,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="stylus">
 #cover {

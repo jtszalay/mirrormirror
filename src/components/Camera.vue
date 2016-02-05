@@ -1,6 +1,6 @@
 <template lang="jade">
   div#camera
-    video#videoel(width="400" height="300" preload="auto" loop)
+    video#videoel(width="400" height="300" preload="auto" loop  v-show='hidden')
 </template>
 
 <script>
@@ -28,10 +28,6 @@ window.URL = window.URL ||
 export default {
   data () {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       state: false,
       hidden: false
     }
@@ -83,8 +79,6 @@ export default {
 
 
 <style lang="stylus">
-#camera
-  display none
 #videoel
   transform: rotateY(180deg)
   -webkit-transform:rotateY(180deg) /* Safari and Chrome */
