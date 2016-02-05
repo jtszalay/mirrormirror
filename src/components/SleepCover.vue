@@ -1,5 +1,5 @@
 <template lang="jade">
-  div#sleepcover(v-show='state')
+  div#sleepcover
 </template>
 
 <script>
@@ -38,25 +38,36 @@ export default {
     },
     showCover: function () {
       this.state = true
+      window.$('#sleepcover').fadeIn(3500)
       console.debug('Show sleep Cover')
     },
     hideCover: function () {
       this.state = false
+      window.$('#sleepcover').fadeOut(3500)
       console.debug('Hide sleep Cover')
     },
     toggleCover: function () {
       this.state = !this.state
+      window.$('#sleepcover').fadeToggle(3500)
       console.debug('Toggle sleep Cover')
     }
   },
   created: function () {
     this.addSpeechCommands()
+  },
+  events: {
+    '*': function (msg) {
+      if (msg['directive'] === 'setUser' && msg['message']['user'] === 'Nobody') {
+        this.state = this.state// true
+      }
+    }
   }
 }
 </script>
 
 <style lang="stylus">
 #sleepcover {
+  display: none;
   background-color: black;
   position: fixed;
   top: 0;

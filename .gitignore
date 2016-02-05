@@ -2,5 +2,5 @@
 node_modules/
 dist/static/
 npm-debug.log
-src/components/*.config
+src/js/local.config.js
 ssl/

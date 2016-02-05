@@ -52,23 +52,23 @@ export default {
 
       annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
         setTimeout(function () { self.userSaid = '' }, 4 * 1000)
-        // console.log(userSaid); // sample output: 'hello'
-        // console.log(commandText); // sample output: 'hello (there)'
-        // console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+        // console.log(userSaid) // sample output: 'hello'
+        // console.log(commandText) // sample output: 'hello (there)'
+        // console.log(phrases) // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
       })
 
       annyang.addCallback('resultNoMatch', function (userSaid, commandText, phrases) {
         setTimeout(function () { self.userSaid = '' }, 4 * 1000)
-        // console.log(userSaid); // sample output: 'hello'
+        // console.log(userSaid) // sample output: 'hello'
         // console.log(commandText); // sample output: 'hello (there)'
-        // console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+        // console.log(phrases) // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
       })
 
       annyang.addCallback('interimResult', function (userSaid, commandText, phrases) {
         self.userSaid = userSaid
         // console.log(userSaid) // sample output: 'hello'
-        // console.log(commandText); // sample output: 'hello (there)'
-        // console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+        // console.log(commandText) // sample output: 'hello (there)'
+        // console.log(phrases) // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
       })
 
       annyang.addCallback('error', function (e) {

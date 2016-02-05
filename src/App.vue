@@ -1,14 +1,17 @@
 <template lang="jade">
-  div#app
-    h1 Hello, {{ user }}
+  div#utils
     speech
+    camera
+    facerecognition
+  div#app
+    h1(v-show='user') Hello, {{ user }}
     weather
+    clock
+    photobooth
+  div#covers
     logocover
     sleepcover
-    clock
-    camera
-    photobooth
-    facerecognition
+    
 </template>
 
 <script>

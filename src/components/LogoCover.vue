@@ -1,6 +1,6 @@
 <template lang="jade">
-  div#logoCover
-    img#cover(src='../assets/cover.png' v-show='state')
+  div#logocover
+    img(src='../assets/cover.png')
 </template>
 
 <script>
@@ -25,14 +25,17 @@ export default {
     },
     showCover: function () {
       this.state = true
+      window.$('#logocover > img').fadeIn(3500)
       console.debug('Show Logo Cover')
     },
     hideCover: function () {
       this.state = false
+      window.$('#logocover > img').fadeOut(3500)
       console.debug('Hide Logo Cover')
     },
     toggleCover: function () {
       this.state = !this.state
+      window.$('#logocover > img').fadeToggle(3500)
       console.debug('toggle Cover')
     }
   },
@@ -43,7 +46,8 @@ export default {
 </script>
 
 <style lang="stylus">
-#cover {
+#logocover > img {
+  display: none;
   background-color: black;
   position: absolute;
   margin: auto;

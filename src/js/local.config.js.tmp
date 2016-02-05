@@ -1,0 +1,4 @@
+// Weather
+var FORECASTIO_APIKEY = ''
+
+export { FORECASTIO_APIKEY }

@@ -15,13 +15,14 @@
 <script>
 import moment from 'moment'
 import '../js/skycons'
+import { FORECASTIO_APIKEY } from '../js/local.config.js'
 
 export default {
   data () {
     return {
       weather: '',
       location: '',
-      apikey: '6b118744916bf546a1e236cd3f4c206c',
+      apikey: FORECASTIO_APIKEY,
       refreshTime: 1 * 3600 * 1000
     }
   },

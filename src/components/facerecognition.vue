@@ -1,5 +1,5 @@
 <template lang="jade">
-  div#facerecognition
+  div#facerecognition(v-show='hidden')
     span {{ face }}
     br
     img#annotated_frame(width='430px' v-bind="{src:annotated_face}")
@@ -12,6 +12,7 @@ export default {
       speechCommands: {
 
       },
+      hidden: false,
       socket: null,
       annotated_face: '',
       face: '',
@@ -110,7 +111,7 @@ export default {
                 identity = 'Unknown'
               }
               self.face = identity
-              console.log(identity)
+              // console.log(identity)
               self.$dispatch('mirror', {'target': 'mirror', 'origin': 'facerecognition', 'directive': 'setUser', 'message': {'user': identity}})
             } else {
               identity = 'Unknown'
@@ -136,7 +137,7 @@ export default {
             self.face = 'Nobody'
             // h += '<li>Nobody detected.</li>';
           }
-          console.log('identitiesFound: ', self.identitiesFound)
+          // console.log('identitiesFound: ', self.identitiesFound)
           /*
           h += '</ul>'
           window.$('#peopleInVideo').html(h);
@@ -149,7 +150,7 @@ export default {
             '<img src=\'' + j['content'] + '\' width=\'430px\'></img>'
           )*/
         } else {
-          console.log('Unrecognized message type: ' + j.type)
+          console.error('Unrecognized message type: ' + j.type)
         }
       }
       socket.onerror = function (e) {
@@ -223,6 +224,4 @@ export default {
 </script>
 
 <style lang="stylus">
-#facerecognition
-  display none
 </style>
