@@ -27,6 +27,7 @@ export default {
       numNulls: 0,
       sentTimes: [],
       receivedTimes: [],
+      retryTimeout: 1 * 1000,
       refreshTime: 24 * 3600 * 1000 // hours * seconds in an hour * mill
     }
   },
@@ -34,7 +35,7 @@ export default {
     createSocket: function () {
       var self = this
       var address = window.location.hostname
-      var socket = socket = new WebSocket('wss:' + address + ':9001')
+      var socket = new WebSocket('wss:' + address + ':9001')
       socket.binaryType = 'arraybuffer'
       socket.onopen = function () {
         console.debug('facerecognition socket connect: ', address)
@@ -154,10 +155,18 @@ export default {
         }
       }
       socket.onerror = function (e) {
+        var identity = 'Nobody'
+        self.$dispatch('mirror', {'target': 'mirror', 'origin': 'facerecognition', 'directive': 'setUser', 'message': {'user': identity}})
         console.debug('Error creating WebSocket connection to ' + address)
         console.debug('facerecognition socket error: ', e)
+        self.retryTimeout = self.retryTimeout * 2
+        console.debug('facerecognition try to reconnect in: ', self.retryTimeout)
+        setTimeout(self.createSocket(), self.retryTimeout)
+
       }
       socket.onclose = function (e) {
+        var identity = 'Nobody'
+        self.$dispatch('mirror', {'target': 'mirror', 'origin': 'facerecognition', 'directive': 'setUser', 'message': {'user': identity}})
         console.debug('facerecognition socket closed: ', e)
       }
       self.socket = socket

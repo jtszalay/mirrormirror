@@ -1,5 +1,5 @@
 <template lang="jade">
-  div.weather
+  div#weather.item.basic
       div#weather-today
         canvas#todayIcon(width='64' height='64')
         span#todayTemp {{ weather.currently.temperature + '&deg; F' }}
@@ -71,7 +71,9 @@ export default {
     }
   },
   created: function () {
-    this.updateWidget()
+    setTimeout(function () {
+      this.updateWidget()
+    }.bind(this), 1000)
     setInterval(function () {
       this.updateWidget()
     }.bind(this), this.refreshTime)
@@ -85,7 +87,6 @@ export default {
 }
 </script>
 
-
 <style scoped lang="stylus">
 #weather-today
   font-size 80px
@@ -96,9 +97,9 @@ export default {
 #weather-description
   & > #weatherText
     font-size 14px
-    //margin-left auto
-    //margin-bottom 20px
-    //text-align justify
+    margin-left auto
+    margin-bottom 20px
+    text-align justify
 
 .weather-week
   & > span

@@ -204,6 +204,7 @@
 
         var commandText;
         // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
+        var success = false
         for (var i = 0; i<results.length; i++) {
           // the text recognized
           commandText = results[i].trim();
@@ -225,12 +226,14 @@
               // execute the matched command
               commandsList[j].callback.apply(this, parameters);
               invokeCallbacks(callbacks.resultMatch, commandText, commandsList[j].originalPhrase, results);
-              return true;
+              success = true;
             }
           }
         }
-        invokeCallbacks(callbacks.resultNoMatch, results);
-        return false;
+        if (!success) {
+          invokeCallbacks(callbacks.resultNoMatch, results);
+          return false;
+        }
       };
 
       // build commands list

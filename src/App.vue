@@ -3,11 +3,12 @@
     speech
     camera
     facerecognition
+    lifx
   div#app
-    h1(v-show='user') Hello, {{ user }}
-    weather
     clock
     photobooth
+    weather
+    greeting
   div#covers
     logocover
     sleepcover
@@ -23,6 +24,8 @@ import sleepcover from './components/sleepcover'
 import logocover from './components/logocover'
 import facerecognition from './components/facerecognition'
 import weather from './components/weather'
+import lifx from './components/lifx'
+import greeting from './components/greeting'
 
 export default {
   data () {
@@ -33,7 +36,7 @@ export default {
     }
   },
   components: {
-    speech, logocover, clock, camera, sleepcover, photobooth, facerecognition, weather
+    speech, logocover, clock, camera, sleepcover, photobooth, facerecognition, weather, lifx, greeting
   },
   events: {
     'relay': function (msg) {
@@ -67,16 +70,51 @@ export default {
     },
     'getUser': function (msg) {
       console.debug('Get User', msg)
+    },
+    'updateLayout': function (msg) {
+      window.Vue.nextTick(function () {
+        window.$('#app').isotope('layout')
+      })
     }
+  },
+  'ready': function () {
+    window.$('#app').isotope({
+      // options
+      itemSelector: '.item',
+      percentPosition: true,
+      layoutMode: 'masonry',
+      masonry: {
+        columnWidth: '.item',
+        gutter: 10
+      }
+    })
+    /*
+    window.$('#app').packery({
+      itemSelector: '.item',
+      gutter: 10
+    })
+    window.$('#app').find('.item').each(function (i, itemElem) {
+      // make element draggable with Draggabilly
+      var draggie = new window.Draggabilly(itemElem)
+      // bind Draggabilly events to Packery
+      window.$('#app').packery('bindDraggabillyEvents', draggie)
+    }) */
   }
 }
 </script>
 
-<style>
+<style lang="stylus">
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,700,300');
+
 body {
 	background-color: black;
   color: #fff;
-  font-family: 'HelveticaNeue-UltraLight', 'Open Sans', sans-serif;
+  font-family: 'Roboto-Light', 'HelveticaNeue-UltraLight', 'Open Sans', sans-serif;
   font-weight: 300;
+  height: 100%;
+}
+.item {
+  width: 25%;
+  margin-bottom: 10px;
 }
 </style>

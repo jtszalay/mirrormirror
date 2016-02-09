@@ -1,4 +1,7 @@
 // Weather
 var FORECASTIO_APIKEY = ''
 
-export { FORECASTIO_APIKEY }
+var LIFX_APIKEY = ''
+
+
+export { FORECASTIO_APIKEY, LIFX_APIKEY }

@@ -1,5 +1,5 @@
 <template lang="jade">
-  div#clock
+  div#clock.item.basic
     span.date {{ date }}
     br
     span.time {{ time }}
@@ -23,7 +23,7 @@ export default {
   methods: {
     updateWidget: function () {
       var self = this
-      self.date = moment().format('dddd MMMM Do YYYY')
+      self.date = moment().format('dddd MMM Do YYYY')
       self.time = moment().format('HH:mm:ss')
     },
     addSpeechCommands: function () {
@@ -37,14 +37,19 @@ export default {
     setInterval(function () {
       this.updateWidget()
     }.bind(this), this.refreshTime)
+  },
+  watch: {
+    'time': function () {
+      this.$dispatch('mirror', {'target': 'mirror', 'origin': 'clock', 'directive': 'updateLayout'})
+    }
   }
 }
 </script>
 
 <style lang="stylus">
 .date
-    font-size 42px
+    font-size 3vw
 
 .time
-    font-size 110px
+    font-size 4vw
 </style>

@@ -1,5 +1,5 @@
 <template lang="jade">
-  div#photobooth
+  div#photobooth.item
     img
 </template>
 

@@ -1,5 +1,6 @@
 <template lang="jade">
-  div#widget
+  div#greeting.item
+    h1 {{ greeting }}
 </template>
 
 <script>
@@ -11,31 +12,32 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       speechCommands: {
-
       },
+      greeting: '',
       refreshTime: 24 * 3600 * 1000 // hours * seconds in an hour * mill
     }
   },
   methods: {
-    updateWidget: function () {
-      var self = this
-      
-    },
     addSpeechCommands: function () {
       var self = this
-      self.$dispatch('relay', {'target': 'speech', 'origin': 'widget', 'directive': 'addcommands', 'message': self.speechCommands})
+      self.$dispatch('relay', {'target': 'speech', 'origin': 'greeting', 'directive': 'addcommands', 'message': self.speechCommands})
     }
   },
   created: function () {
-    this.updateWidget()
     this.addSpeechCommands()
-    setInterval(function () {
-      this.updateWidget()
-    }.bind(this), this.refreshTime)
   },
   events: {
-    'widget': function (msg) {
+    'greeting': function (msg) {
       this.$emit(msg['directive'], msg)
+    },
+    '*': function (msg) {
+      if (msg['directive'] === 'setUser' && msg['message']['user'] === 'Nobody') {
+        this.greeting = ''
+      } else if (msg['directive'] === 'setUser' && msg['message']['user'] === 'Unknown') {
+        this.greeting = 'Hello!'
+      } else if (msg['directive'] === 'setUser' && msg['message']['user']) {
+        this.greeting = 'Hello, ' + msg['message']['user'] + '!'
+      }
     }
   }
 }

@@ -12,7 +12,7 @@ export default {
   data () {
     return {
       listening: false,
-      debug: false,
+      debug: true,
       userSaid: '',
       speechCommands: {
         /* '*allSpeech': function (allSpeech) {
@@ -100,6 +100,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="stylus">
+#speech {
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
 </style>
